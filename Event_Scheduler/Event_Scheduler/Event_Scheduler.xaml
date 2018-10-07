@@ -21,16 +21,44 @@
           Name="testEvent" VerticalAlignment="Top" Width="684" ColumnWidth="*" AlternatingRowBackground="#FF72F19E" RowBackground="#FFCCCCCC"
            >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}" Header="Id"
-                      IsReadOnly="True" x:Name="id">
+                <DataGridTemplateColumn Header="Delete" IsReadOnly="True" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="/Images/delete.png" Height="20" Width="20" MouseUp="btnDelete_MouseUp" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding id}" Header="Id" IsReadOnly="True" x:Name="id">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding startdate}" Header="Start Date"
+                      IsReadOnly="True" x:Name="startdate">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding enddate}" Header="End Date"
+                      IsReadOnly="True" x:Name="enddate">
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding title}" Header="Title"
                       IsReadOnly="True" x:Name="title">
                 </DataGridTextColumn>
-                
-                
-                
-                
+                <DataGridTextColumn Binding="{Binding notes}" Header="Notes"
+                      IsReadOnly="True" x:Name="notes">
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="/Images/edit.png" Height="20" Width="20" MouseUp="btnEdit_MouseUp" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Print" IsReadOnly="True" Width="40">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="/Images/print.png" Height="20" Width="20" MouseUp="btnPrintSingle_MouseUp" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
             </DataGrid.Columns>
         </DataGrid>
 

@@ -13,6 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+/*
+ * Author - Kevin Stanley
+ * Course - CSC 660
+ * Assignment - Daily Planner
+ * Description - This is a Daily Planner app that will allow users to view, edit, delete, and print events.
+ * 
+ * 
+ */
+
 namespace Event_Scheduler
 {
     /// <summary>
@@ -33,10 +43,17 @@ namespace Event_Scheduler
 
         private void btnAdd_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            showMessage("Add");
+            AddEvent addEventWindow = new AddEvent();
+            addEventWindow.Show();
         }
 
         private void btnPrint_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            PrintWindow printWindow = new PrintWindow();
+            printWindow.Show();
+        }
+
+        private void btnPrintSingle_MouseUp(object sender, MouseButtonEventArgs e)
         {
             showMessage("Print");
         }
@@ -49,6 +66,16 @@ namespace Event_Scheduler
         private void btnLeft_MouseUp(object sender, MouseButtonEventArgs e)
         {
             showMessage("Left");
+        }
+
+        private void btnEdit_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            showMessage("Edit");
+        }
+
+        private void btnDelete_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            showMessage("Delete");
         }
 
         private void showMessage(String title)

@@ -1,0 +1,29 @@
+﻿<Window x:Class="Event_Scheduler.PrintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Event_Scheduler"
+        mc:Ignorable="d"
+        Title="PrintWindow" Height="281.25" Width="565.466">
+    <Grid Background="#6fa8dc">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblBanner" Content="Print Events" HorizontalAlignment="Left" Margin="206,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24" FontWeight="Bold"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="282,62,0,0" VerticalAlignment="Top" Width="162">
+            <ComboBoxItem Name="choose" IsSelected="True">Please select Print Type</ComboBoxItem>
+            <ComboBoxItem Name="range" IsSelected="False">Events For Date Range</ComboBoxItem>
+            <ComboBoxItem Name="all" IsSelected="False">All Events</ComboBoxItem>
+        </ComboBox>
+        <Label x:Name="lblPrintType" Content="Print Type" HorizontalAlignment="Left" Margin="177,58,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblStartDate" Content="Start Date" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <DatePicker Name="dpStartDate" HorizontalAlignment="Left" Margin="282,98,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
+        <Label x:Name="lblEndDate" Content="End Date" HorizontalAlignment="Left" Margin="177,129,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="282,129,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
+        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Left" Margin="244,197,0,0" VerticalAlignment="Top" Width="75" Background="#FF72F19E" FontFamily="Arial" FontSize="14" FontWeight="Bold" Click="btnPrint_Click"/>
+
+
+    </Grid>
+</Window>

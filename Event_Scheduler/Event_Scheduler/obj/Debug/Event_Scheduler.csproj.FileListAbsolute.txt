@@ -19,3 +19,7 @@ E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\Ev
 E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\Event_Scheduler.exe
 E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\Event_Scheduler.pdb
 E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\Event_Scheduler.csprojAssemblyReference.cache
+E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\PrintWindow.g.cs
+E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\PrintWindow.baml
+E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\AddEvent.g.cs
+E:\Kevin\School\LSUS\CSC_660\CSC660\Event_Scheduler\Event_Scheduler\obj\Debug\AddEvent.baml
