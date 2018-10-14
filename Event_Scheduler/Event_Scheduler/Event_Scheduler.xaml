@@ -5,30 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Event_Scheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    
+        Title="MainWindow" Height="450" Width="1096.386" Activated="Window_Activated">
+
 
     <Grid Background="#6fa8dc">
-        <Label x:Name="lblBanner" Content="Daily Planner" HorizontalAlignment="Left" Margin="296,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24" FontWeight="Bold"/>
-        <Image x:Name="btnAdd" HorizontalAlignment="Left" Margin="619,42,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/add.png" MouseUp="btnAdd_MouseUp"/>
-        <Image x:Name="btnPrint" HorizontalAlignment="Left" Margin="682,42,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/print.png" RenderTransformOrigin="0.065,0.563" MouseUp="btnPrint_MouseUp"/>
-        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="315,53,0,0" VerticalAlignment="Top" Height="36" Width="130"/>
-        <Image x:Name="btnLeft" HorizontalAlignment="Left" Margin="239,42,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/left.png" MouseUp="btnLeft_MouseUp"/>
-        <Image x:Name="btnRight" HorizontalAlignment="Left" Margin="479,42,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/right.png" MouseUp="btnRight_MouseUp"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="61*"/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblBanner" Content="Daily Planner" HorizontalAlignment="Left" Margin="321.337,13,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24" FontWeight="Bold" Grid.Column="1"/>
+        <Image x:Name="btnAdd" HorizontalAlignment="Left" Margin="822.337,45,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/add.png" MouseUp="btnAdd_MouseUp" Grid.Column="1"/>
+        <Image x:Name="btnPrint" HorizontalAlignment="Left" Margin="885.337,45,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/print.png" RenderTransformOrigin="0.065,0.563" MouseUp="btnPrint_MouseUp" Grid.Column="1"/>
+        <DatePicker Name="dpDate" HorizontalAlignment="Left" Margin="340.337,56,0,0" VerticalAlignment="Top" Height="36" Width="130" SelectedDateChanged="dpDate_SelectedDateChanged" Grid.Column="1">
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox">
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </DatePicker.Resources>
+        </DatePicker>
+        <Image x:Name="btnLeft" HorizontalAlignment="Left" Margin="264.337,45,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/left.png" MouseUp="btnLeft_MouseUp" Grid.Column="1"/>
+        <Image x:Name="btnRight" HorizontalAlignment="Left" Margin="504.337,45,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="Images/right.png" MouseUp="btnRight_MouseUp" Grid.Column="1"/>
 
         <DataGrid AutoGenerateColumns="False" Height="226"
           HorizontalAlignment="Left" Margin="67,112,0,0" 
-          Name="testEvent" VerticalAlignment="Top" Width="684" ColumnWidth="*" AlternatingRowBackground="#FF72F19E" RowBackground="#FFCCCCCC"
+          Name="eventGrid" VerticalAlignment="Top" Width="970" ColumnWidth="*" AlternatingRowBackground="#FF72F19E" RowBackground="#FFCCCCCC" CanUserAddRows="false" CanUserDeleteRows="True" Grid.ColumnSpan="2"
            >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Delete" IsReadOnly="True" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="/Images/delete.png" Height="20" Width="20" MouseUp="btnDelete_MouseUp" />
+                            <Image Source="/Images/delete.png" Height="20" Width="20" MouseUp="btnDelete_MouseUp" ToolTip="{Binding id}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding id}" Header="Id" IsReadOnly="True" x:Name="id">
+                <DataGridTextColumn Binding="{Binding id}" Header="ID" IsReadOnly="True" x:Name="id" Width="50">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding title}" Header="Title"
+                      IsReadOnly="True" x:Name="title">
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding startdate}" Header="Start Date"
                       IsReadOnly="True" x:Name="startdate">
@@ -36,29 +49,16 @@
                 <DataGridTextColumn Binding="{Binding enddate}" Header="End Date"
                       IsReadOnly="True" x:Name="enddate">
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding title}" Header="Title"
-                      IsReadOnly="True" x:Name="title">
-                </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding notes}" Header="Notes"
                       IsReadOnly="True" x:Name="notes">
                 </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="40">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="/Images/edit.png" Height="20" Width="20" MouseUp="btnEdit_MouseUp" />
+                            <Image Source="/Images/edit.png" Height="20" Width="20" MouseUp="btnEdit_MouseUp" ToolTip="{Binding id}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Print" IsReadOnly="True" Width="40">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="/Images/print.png" Height="20" Width="20" MouseUp="btnPrintSingle_MouseUp" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-
-
             </DataGrid.Columns>
         </DataGrid>
 
