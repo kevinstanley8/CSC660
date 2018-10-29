@@ -2,6 +2,11 @@
 <Schema Namespace="es_K04000766Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="es_K04000766Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Events" EntityType="es_K04000766Model.Event" />
+    <EntitySet Name="Categories" EntityType="es_K04000766Model.Category" />
+    <AssociationSet Name="FK_Event_Category" Association="es_K04000766Model.FK_Event_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Event" EntitySet="Events" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Event">
     <Key>
@@ -12,5 +17,28 @@
     <Property Name="startdate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="enddate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="Int32" />
+    <NavigationProperty Name="Category1" Relationship="es_K04000766Model.FK_Event_Category" FromRole="Event" ToRole="Category" />
   </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Events" Relationship="es_K04000766Model.FK_Event_Category" FromRole="Category" ToRole="Event" />
+  </EntityType>
+  <Association Name="FK_Event_Category">
+    <End Type="es_K04000766Model.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="es_K04000766Model.Event" Role="Event" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

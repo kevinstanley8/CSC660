@@ -12,15 +12,19 @@ namespace Event_Scheduler
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class Category
     {
-        public int id { get; set; }
-        public string title { get; set; }
-        public System.DateTime startdate { get; set; }
-        public System.DateTime enddate { get; set; }
-        public string notes { get; set; }
-        public Nullable<int> category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Category()
+        {
+            this.Events = new HashSet<Event>();
+        }
     
-        public virtual Category Category1 { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string color { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

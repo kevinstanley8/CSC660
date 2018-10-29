@@ -42,6 +42,7 @@ namespace Event_Scheduler
         {
             this.findEvent = this.Con.Events.Find(eventId);
             this.dpStartDate.Text = findEvent.startdate.ToShortDateString();
+            this.dpEndDate.Text = findEvent.enddate.ToShortDateString();
 
             int startHour = findEvent.startdate.Hour;
             int endHour = findEvent.enddate.Hour;
@@ -81,6 +82,14 @@ namespace Event_Scheduler
 
             this.txtTitle.Text = findEvent.title;
             this.txtNotes.Text = findEvent.notes;
+
+            //set category
+            if (findEvent.category != null)
+            {
+                Category cat = this.Con.Categories.Find(findEvent.category);
+                cbCategory.SelectedValue = cat.name;
+                setCategoryColor();
+            }
         }
 
         private void setDefaultValues()
@@ -114,6 +123,13 @@ namespace Event_Scheduler
             this.cbEndAMPM.SelectedIndex = 0;
 
             dpStartDate.Text = DateTime.Today.ToShortTimeString();
+            dpEndDate.Text = DateTime.Today.ToShortTimeString();
+
+            //load category box
+            foreach(Category cat in this.Con.Categories)
+            {
+                this.cbCategory.Items.Add(cat.name);
+            }
         }
 
         private DateTime getDate()
@@ -129,9 +145,25 @@ namespace Event_Scheduler
             }
         }
 
+        private DateTime getEndDate()
+        {
+            try
+            {
+                DateTime enteredDate = DateTime.Parse(dpEndDate.Text);
+                return enteredDate;
+            }
+            catch (Exception e)
+            {
+                return DateTime.Today;
+            }
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            this.validateEvent();
+            if(!this.validateEvent())
+            {
+                return;
+            }
             Event newEvent = this.getEvent();
             if (this.isInsert)
             {
@@ -145,6 +177,7 @@ namespace Event_Scheduler
                 modifyEvent.enddate = newEvent.enddate;
                 modifyEvent.title = newEvent.title;
                 modifyEvent.notes = newEvent.notes;
+                modifyEvent.category = getCategoryId();
                 Con.SaveChanges();
             }
             this.Close();
@@ -154,7 +187,7 @@ namespace Event_Scheduler
         {
             Event newEvent = new Event();
             DateTime startDate = getDate();
-            DateTime endDate = getDate();
+            DateTime endDate = getEndDate();
             int startHourOffset = 0;
             int endHourOffset = 0;
 
@@ -172,66 +205,118 @@ namespace Event_Scheduler
 
             newEvent.title = txtTitle.Text;
             newEvent.notes = txtNotes.Text;
+            newEvent.category = getCategoryId();
             return newEvent;
         }
 
-        private void validateEvent()
+        private Boolean validateEvent()
         {
             //start date
             if(dpStartDate.Text == null || dpStartDate.Text.Equals(""))
             {
                 showMessage("Error", "You must select an event start date!");
-                return;
+                return false;
+            }
+
+            //end date
+            if (dpEndDate.Text == null || dpEndDate.Text.Equals(""))
+            {
+                showMessage("Error", "You must select an event end date!");
+                return false;
             }
 
             //start hour
             if (cbStartHour.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select an event start hour!");
-                return;
+                return false;
             }
 
             //start minute
             if (cbStartMinute.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select an event start minute!");
-                return;
+                return false;
             }
 
             //start AM/PM
             if (cbStartAMPM.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select AM/PM for the event start time!");
-                return;
+                return false;
             }
 
             //end hour
             if (cbEndHour.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select an event end hour!");
-                return;
+                return false;
             }
 
             //end minute
             if (cbEndMinute.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select an event end minute!");
-                return;
+                return false;
             }
 
             //end AP/PM
             if (cbEndAMPM.SelectedIndex <= 0)
             {
                 showMessage("Error", "You must select AM/PM for the event end time!");
-                return;
+                return false;
             }
 
             //title
             if (txtTitle.Text == null || txtTitle.Text.Equals(""))
             {
                 showMessage("Error", "You must enter an event title!");
-                return;
+                return false;
             }
+
+            //category
+            if (cbCategory.SelectedIndex < 0)
+            {
+                showMessage("Error", "You must enter an event category!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void setCategoryColor()
+        {
+            if (cbCategory.SelectedValue != null)
+            {
+                String catName = cbCategory.SelectedValue.ToString();
+
+                foreach (Category category in this.Con.Categories)
+                {
+                    if (category.name.Equals(catName))
+                    {
+                        this.lblCategoryColor.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom(category.color));
+                        break;
+                    }
+                }
+            }
+        }
+
+        private int getCategoryId()
+        {
+            if (cbCategory.SelectedValue != null)
+            {
+                String catName = cbCategory.SelectedValue.ToString();
+
+                foreach (Category category in this.Con.Categories)
+                {
+                    if (category.name.Equals(catName))
+                    {
+                        return category.id;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         private void showMessage(String title, String message)
@@ -240,6 +325,11 @@ namespace Event_Scheduler
                                           title,
                                           MessageBoxButton.OK,
                                           MessageBoxImage.Information);
+        }
+
+        private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.setCategoryColor();
         }
     }
 }

@@ -4,10 +4,20 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="es_K04000766Model.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="category" ColumnName="category" />
           <ScalarProperty Name="notes" ColumnName="notes" />
           <ScalarProperty Name="enddate" ColumnName="enddate" />
           <ScalarProperty Name="startdate" ColumnName="startdate" />
           <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="es_K04000766Model.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

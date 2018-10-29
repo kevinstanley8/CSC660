@@ -52,6 +52,9 @@
                 <DataGridTextColumn Binding="{Binding notes}" Header="Notes"
                       IsReadOnly="True" x:Name="notes">
                 </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding categoryname}" Header="Category"
+                      IsReadOnly="True" x:Name="categoryname">
+                </DataGridTextColumn>
                 <DataGridTemplateColumn Header="Edit" IsReadOnly="True" Width="40">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

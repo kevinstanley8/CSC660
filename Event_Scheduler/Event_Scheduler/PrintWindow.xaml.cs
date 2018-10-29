@@ -21,9 +21,23 @@ namespace Event_Scheduler
     /// </summary>
     public partial class PrintWindow : Window
     {
+        private es_K04000766Entities Con;
+
         public PrintWindow()
         {
+            this.Con = new es_K04000766Entities();
             InitializeComponent();
+            loadCategories();
+        }
+
+        private void loadCategories()
+        {
+            //load category box
+            this.cbCategory.Items.Add("ALL");
+            foreach (Category cat in this.Con.Categories)
+            {
+                this.cbCategory.Items.Add(cat.name);
+            }
         }
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
@@ -59,15 +73,58 @@ namespace Event_Scheduler
         private void printAllEvents()
         {
             es_K04000766Entities Con = new es_K04000766Entities();
-            printEvents("ALL_EVENTS", Con.Events.OrderBy(e => e.startdate).ToList());
+            List<Event> tableData;
+
+            //if user selected a category only show records with the matching category
+            if (cbCategory.SelectedIndex > 0)
+            {
+                int categoryId = getCategoryId();
+
+                tableData = Con.Events.Where(e => e.category == categoryId).OrderBy(e => e.startdate).ToList();
+                printEvents("ALL_EVENTS", tableData);
+            }
+            else
+            {
+                tableData = Con.Events.OrderBy(e => e.startdate).ToList();
+                printEvents("ALL_EVENTS", tableData);
+            }
+        }
+
+        private int getCategoryId()
+        {
+            String catName = cbCategory.SelectedValue.ToString();
+
+            foreach (Category category in this.Con.Categories)
+            {
+                if (category.name.Equals(catName))
+                {
+                    return category.id;
+                }
+            }
+
+            return 0;
         }
 
         private void printRangeEvents(DateTime startDate, DateTime endDate)
         {
             es_K04000766Entities Con = new es_K04000766Entities();
-            List<Event> tableData = Con.Events.Where(e => EntityFunctions.TruncateTime(e.startdate) >= startDate && EntityFunctions.TruncateTime(e.enddate) <= endDate)
+            List<Event> tableData;
+
+            if (cbCategory.SelectedIndex > 0)
+            {
+                int categoryId = getCategoryId();
+                tableData = Con.Events.Where(e => EntityFunctions.TruncateTime(e.startdate) >= startDate && EntityFunctions.TruncateTime(e.enddate) <= endDate && e.category == categoryId)
                 .OrderBy(e => e.startdate)
                 .ToList();
+            }
+            else
+            {
+                tableData = Con.Events.Where(e => EntityFunctions.TruncateTime(e.startdate) >= startDate && EntityFunctions.TruncateTime(e.enddate) <= endDate)
+                .OrderBy(e => e.startdate)
+                .ToList();
+            }
+
+            
             printEvents("RANGE_EVENTS", tableData);
         }
 
@@ -75,7 +132,8 @@ namespace Event_Scheduler
         {
             // Write the string array to a new file named "WriteLines.txt".
             String projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            String filepath = projectDir + "/Print/" + title + ".html";
+            String filepath = projectDir + "/" + title + ".html";
+
             using (StreamWriter outputFile = new StreamWriter(filepath))
             {
                 StringBuilder builder = new StringBuilder();

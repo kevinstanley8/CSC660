@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,7 +21,6 @@ using System.Windows.Shapes;
  * Course - CSC 660
  * Assignment - Daily Planner
  * Description - This is a Daily Planner app that will allow users to view, edit, delete, and print events.
- * 
  * 
  */
 
@@ -44,10 +44,26 @@ namespace Event_Scheduler
         {
             this.Con = new es_K04000766Entities();
             DateTime enteredDate = this.getDate();
-            List<Event> tableData = this.Con.Events.Where(e => EntityFunctions.TruncateTime(e.startdate) == enteredDate)
-                .OrderBy(e => e.startdate)
-                .ToList();
-            eventGrid.ItemsSource = tableData;
+
+            var events = (from e in this.Con.Events
+                              from c in this.Con.Categories
+                              where e.category == c.id &&
+                              EntityFunctions.TruncateTime(e.startdate) <= enteredDate &&
+                              EntityFunctions.TruncateTime(e.enddate) >= enteredDate
+                              orderby e.startdate ascending
+                              select new
+                              {
+                                  id = e.id,
+                                  title = e.title,
+                                  startdate = e.startdate,
+                                  enddate = e.enddate,
+                                  notes = e.notes,
+                                  categoryid = c.id,
+                                  categoryname = c.name,
+                                  color = c.color
+                              }).ToList();
+
+            eventGrid.ItemsSource = events;
             this.eventGrid.AlternationCount = 1;
         }
 

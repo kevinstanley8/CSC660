@@ -12,17 +12,20 @@
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Label x:Name="lblBanner" Content="Print Events" HorizontalAlignment="Left" Margin="206,10,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24" FontWeight="Bold"/>
-        <ComboBox x:Name="cbPrintType" HorizontalAlignment="Left" Margin="282,62,0,0" VerticalAlignment="Top" Width="162">
+        <ComboBox x:Name="cbPrintType" HorizontalAlignment="Left" Margin="292,62,0,0" VerticalAlignment="Top" Width="162">
             <ComboBoxItem Name="choose" IsSelected="True">Please select Print Type</ComboBoxItem>
             <ComboBoxItem Name="range" IsSelected="False">Events For Date Range</ComboBoxItem>
             <ComboBoxItem Name="all" IsSelected="False">All Events</ComboBoxItem>
         </ComboBox>
-        <Label x:Name="lblPrintType" Content="Print Type" HorizontalAlignment="Left" Margin="177,58,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="lblStartDate" Content="Start Date" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-        <DatePicker Name="dpStartDate" HorizontalAlignment="Left" Margin="282,98,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
-        <Label x:Name="lblEndDate" Content="End Date" HorizontalAlignment="Left" Margin="177,129,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
-        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="282,129,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
-        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Left" Margin="244,197,0,0" VerticalAlignment="Top" Width="75" Background="#FF72F19E" FontFamily="Arial" FontSize="14" FontWeight="Bold" Click="btnPrint_Click"/>
+        <Label x:Name="lblPrintType" Content="Print Type:" HorizontalAlignment="Left" Margin="177,58,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="lblStartDate" Content="Start Date:" HorizontalAlignment="Left" Margin="177,98,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <DatePicker Name="dpStartDate" HorizontalAlignment="Left" Margin="292,98,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
+        <Label x:Name="lblEndDate" Content="End Date:" HorizontalAlignment="Left" Margin="177,129,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <DatePicker x:Name="dpEndDate" HorizontalAlignment="Left" Margin="292,129,0,0" VerticalAlignment="Top" Height="36" Width="162"/>
+        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Left" Margin="244,215,0,0" VerticalAlignment="Top" Width="75" Background="#FF72F19E" FontFamily="Arial" FontSize="14" FontWeight="Bold" Click="btnPrint_Click"/>
+        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="292,164,0,0" VerticalAlignment="Top" Width="162"/>
+
+        <Label x:Name="lblCatetory" Content="Category Type:" HorizontalAlignment="Left" Margin="177,160,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
 
 
     </Grid>
